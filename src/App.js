@@ -2,28 +2,14 @@ import './App.css';
 import Joke from './components/Joke'
 import ControlPanel from './components/ControlPanel'
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {Provider} from 'react-redux';
+import {store} from './ReduxStuff'
 
 export default class App extends Component {
-  state = {
-    currentJoke:'Click on the button to get a joke!'
-  }
+  
 
-  onClick = (e) => {
-    e.preventDefault();
-    
-    fetch('https://icanhazdadjoke.com/',
-    {method:'GET',
-  headers: {
-    Accept: 'application/json'
-  }
-})
-.then(res => res.json())
-.then(res => this.setState({
-      currentJoke: res.joke
-    }))
-
-}
+  
 
 
   render() {
@@ -32,8 +18,10 @@ export default class App extends Component {
         <header className="App-header">
           <h1>Dad jokes app</h1>
         </header>
-        <Joke currentJoke={this.state.currentJoke} />
-        <ControlPanel fetchJoke={this.onClick} />
+        <Provider store ={store}>
+        <Joke  />
+        <ControlPanel />
+        </Provider>
       </div>
     )
   }

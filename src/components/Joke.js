@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types'
 
-export default class Joke extends Component {
+class Joke extends Component {
     render() {
         return (
             <div style={jokeStyle}>
@@ -9,6 +11,11 @@ export default class Joke extends Component {
         )
     }
 }
+
+Joke.propTypes = {
+    currentJoke: PropTypes.string.isRequired
+}
+
 
 const jokeStyle = {
     alignSelf:'center',
@@ -20,3 +27,8 @@ const jokeStyle = {
     borderColor: 'grey'
 
 }
+const mapStateToProps = (state) => ({
+    currentJoke: state.jokes.joke
+});
+
+export default connect(mapStateToProps,null)(Joke)

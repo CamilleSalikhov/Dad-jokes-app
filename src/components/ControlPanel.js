@@ -1,14 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {fetchJoke} from '../ReduxStuff';
+import PropTypes from 'prop-types';
 
-export default class ControlPanel extends Component {
+class ControlPanel extends Component {
     
-
+    onClick = (e) => {
+        e.preventDefault();
+        this.props.fetchJoke()
+    }
 
     render() {
         return (
             <div>
-                <button type='submit' onClick={this.props.fetchJoke}>Click me!</button>
+                <button type='submit' onClick={this.onClick}>Click me!</button>
             </div>
         )
     }
 }
+
+ControlPanel.propTypes = {
+    fetchJoke: PropTypes.func.isRequired
+}
+
+export default connect(null,{fetchJoke})(ControlPanel)
